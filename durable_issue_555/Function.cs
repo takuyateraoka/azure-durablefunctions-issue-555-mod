@@ -48,7 +48,7 @@ namespace durable_issue_555
             var outputs = new List<string>();
 
             // for test
-            var TEST_COUNT = 5;
+            var TEST_COUNT = 2;
             for (var i = 0; i < TEST_COUNT; i++)
             {
                 var messageStatus = new MessageStatus();
