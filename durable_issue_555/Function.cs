@@ -54,11 +54,9 @@ namespace durable_issue_555
                 var messageStatus = new MessageStatus();
                 messageStatus.MessageId = i.ToString();
 
-                var sendMessageTasks = new List<Task<string>>
-                {
-                    context.CallSubOrchestratorAsync<string>("SubOrc_SendLineMessage", (context.InstanceId, messageStatus)),
-                    context.CallSubOrchestratorAsync<string>("SubOrc_SendFacebookMessage", (context.InstanceId, messageStatus))
-                };
+                var sendMessageTasks = new List<Task<string>>();
+                sendMessageTasks.Add(context.CallSubOrchestratorAsync<string>("SubOrc_SendLineMessage", (context.InstanceId, messageStatus)));
+                sendMessageTasks.Add(context.CallSubOrchestratorAsync<string>("SubOrc_SendFacebookMessage", (context.InstanceId, messageStatus)));
 
                 // wait tasks
                 await Task.WhenAll(sendMessageTasks);
